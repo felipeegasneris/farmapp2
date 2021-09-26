@@ -1,7 +1,151 @@
 {
   "version": 2,
-  "projects": {},
+  "projects": {
+    "core": {
+      "root": "libs/core",
+      "sourceRoot": "libs/core/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/core/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/core"],
+          "options": {
+            "jestConfig": "libs/core/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "farmapp-web": {
+      "root": "apps/farmapp-web",
+      "sourceRoot": "apps/farmapp-web/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/farmapp-web",
+            "index": "apps/farmapp-web/src/index.html",
+            "main": "apps/farmapp-web/src/main.tsx",
+            "polyfills": "apps/farmapp-web/src/polyfills.ts",
+            "tsConfig": "apps/farmapp-web/tsconfig.app.json",
+            "assets": [
+              "apps/farmapp-web/src/favicon.ico",
+              "apps/farmapp-web/src/assets"
+            ],
+            "styles": ["apps/farmapp-web/src/styles.css"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/farmapp-web/src/environments/environment.ts",
+                  "with": "apps/farmapp-web/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "farmapp-web:build",
+            "hmr": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "farmapp-web:build:production",
+              "hmr": false
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/farmapp-web/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/farmapp-web"],
+          "options": {
+            "jestConfig": "apps/farmapp-web/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "farmapp-web-e2e": {
+      "root": "apps/farmapp-web-e2e",
+      "sourceRoot": "apps/farmapp-web-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/farmapp-web-e2e/cypress.json",
+            "devServerTarget": "farmapp-web:serve",
+            "tsConfig": "apps/farmapp-web-e2e/tsconfig.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "farmapp-web:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/farmapp-web-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
-  }
+    "defaultCollection": "@nrwl/react"
+  },
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "style": "css",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "css"
+      },
+      "library": {
+        "style": "css",
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "farmapp-web"
 }
