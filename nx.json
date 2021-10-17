@@ -30,12 +30,12 @@
     "core": {
       "tags": []
     },
-    "farmapp-web": {
+    "web": {
       "tags": []
     },
-    "farmapp-web-e2e": {
+    "web-e2e": {
       "tags": [],
-      "implicitDependencies": ["farmapp-web"]
+      "implicitDependencies": ["web"]
     }
   }
 }
