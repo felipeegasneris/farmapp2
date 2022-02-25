@@ -7,6 +7,7 @@ function useDrugstoresViewModel(store: DrugstoreRepository) {
   return {
     drugstores,
     isLoading: store.isLoading,
+    isError: store.isError,
   };
 }
 

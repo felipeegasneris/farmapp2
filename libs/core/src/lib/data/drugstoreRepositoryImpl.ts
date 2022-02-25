@@ -5,9 +5,11 @@ import { useQuery } from 'react-query';
 const useDrugstoreRepositoryImpl = (): DrugstoreRepository => {
   const query = useQuery('all', getDrugstores, { initialData: [] });
 
-  return {
-    drugstores: query.data,
+  console.log(query);
+  return <DrugstoreRepository>{
+    drugstores: query.data ?? [],
     isLoading: query.isLoading,
+    isError: query.isError,
   };
 };
 

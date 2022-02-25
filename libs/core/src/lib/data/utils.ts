@@ -21,6 +21,7 @@ export type DrugstoreJSON = {
 const transformData = (input: DrugstoreJSON[]): DrugstoreEntity[] => {
   return input
     .map((inputDrugstore) => {
+      console.log(inputDrugstore);
       return {
         closingHour: inputDrugstore.funcionamiento_hora_cierre,
         premisesAddress: inputDrugstore.local_direccion,

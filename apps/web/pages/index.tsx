@@ -10,11 +10,12 @@ import { useGeolocation } from 'rooks';
 export function Index() {
   const geoObj = useGeolocation();
   const store = useDrugstoreRepositoryImpl();
-  const { drugstores, isLoading } = useDrugstoresViewModel(store);
+  const { drugstores, isLoading, isError } = useDrugstoresViewModel(store);
 
-  console.log(geoObj);
+  console.log('drugstores: ', drugstores);
   return (
     <div className={styles.page}>
+      {isError && <div>error</div>}
       {isLoading && <div>Loading data...</div>}
 
       {geoObj && (

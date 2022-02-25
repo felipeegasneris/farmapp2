@@ -38,12 +38,7 @@ const MapComponent = ({
             anchor={[premisesLatitude, premisesLongitude]}
             onClick={() =>
               console.log(
-                premisesLatitude,
-                premisesLongitude,
-                localityName,
-                premisesAddress,
-                communeName,
-                region
+                `${premisesId} - ${localityName} - ${communeName} - ${region} - ${premisesAddress}`
               )
             }
           />
